@@ -1,0 +1,11 @@
+# VECM-ARB dependencies (Python 3.9+; developed on 3.14)
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+statsmodels>=0.14      # Johansen test + VECM
+cvxpy>=1.4             # convex hedge optimiser (SciPy SLSQP fallback if absent)
+pyzmq>=25.0            # ZeroMQ distributed pub-sub bus
+matplotlib>=3.7        # tear-sheet & architecture plots
+yfinance>=0.2          # dataset download
+# optional: redis>=5.0  # alternative pub-sub transport
+# optional: pytest>=7.0 # tests
