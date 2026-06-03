@@ -1,10 +1,3 @@
-"""
-Central configuration for the VECM-ARB distributed statistical-arbitrage engine.
-
-Every tunable parameter — econometric, trading, microstructure and messaging —
-lives here so that the math engine, backtester and live services all read from a
-single source of truth.
-"""
 from __future__ import annotations
 
 from pathlib import Path
