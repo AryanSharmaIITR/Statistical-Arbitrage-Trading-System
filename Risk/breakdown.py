@@ -1,18 +1,3 @@
-"""
-Cointegration-breakdown protocol.
-
-A cointegrating relationship is not permanent — a structural break (earnings
-shock, index reconstitution, M&A) can destroy the equilibrium. Trading a spread
-that no longer mean-reverts is how stat-arb books blow up. This monitor re-runs
-the Johansen test on a rolling window and flags a breakdown when **both**:
-
-  * the cointegration rank collapses below ``min_rank`` (no validated relation), and
-  * the traded spread's half-life blows out beyond ``max_half_life``,
-
-and stays that way for ``confirm`` consecutive checks (debounce). On a confirmed
-breakdown the engine liquidates the book and pauses new entries until the
-relationship re-validates.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass

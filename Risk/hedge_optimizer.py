@@ -1,36 +1,3 @@
-"""
-Dynamic risk & hedging engine (convex optimisation).
-
-The naive way to hold the cointegrating portfolio is to take positions exactly
-proportional to β. But in the real world an asset can suddenly **halt** (no
-trading) or become **hard-to-borrow** (shorting it is punitively expensive). We
-must then reconstruct the *economic exposure* of the spread using the remaining
-N-1 tradable assets, while staying market-neutral and respecting position caps.
-
-We solve a convex (QP) tracking problem with CVXPY:
-
-    minimise   (w - β)' Σ (w - β)        # replicate β's risk exposure
-             + γ · Σ borrow_i · (-w_i)_+ # penalise expensive shorts
-    s.t.       m' w = m' β                # preserve net market exposure
-               w_i = 0  ∀ i ∈ halted      # cannot trade halted names
-               |w_i| ≤ w_max              # concentration limit
-               ||w||_1 ≤ L                # gross-leverage budget
-
-Two points worth stressing:
-
-* A Johansen cointegrating vector β is a *stationary* combination, not a
-  dollar-neutral one, so we do **not** force ``1'w = 0``. Instead we preserve
-  the *net market exposure* ``m'β`` of the original spread (with ``m`` the
-  per-name market betas, defaulting to 1 = dollar exposure). When nothing is
-  halted the optimum is simply ``w = β`` (zero tracking error); when a name
-  drops out the remaining weights adjust so the book's market neutrality is
-  unchanged — exactly the requirement in the brief.
-* Minimising tracking error in *return-covariance* space (not raw weight space)
-  means the optimiser substitutes a halted/expensive name with the basket of
-  its most-correlated tradable peers — the correct economic hedge.
-
-A SciPy SLSQP fallback is provided if CVXPY is unavailable.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -68,17 +35,7 @@ def optimize_hedge(
     borrow_penalty: float = 5.0,
     target_gross: float = config.TARGET_GROSS,
 ) -> HedgeSolution:
-    """Re-optimise hedge weights for the tradable sub-universe.
-
-    Parameters
-    ----------
-    beta        : target cointegrating exposure (length k), gross-normalised.
-    cov         : k x k return covariance matrix (risk metric for tracking).
-    halted      : boolean mask, True where the asset cannot be traded.
-    borrow_rate : per-name annualised short-borrow cost (length k).
-    market_beta : per-name market betas ``m`` to preserve net exposure ``m'β``.
-                  Defaults to ones (preserve net dollar exposure).
-    """
+    
     k = len(beta)
     beta = np.asarray(beta, float).ravel()
     cov = np.asarray(cov, float)
