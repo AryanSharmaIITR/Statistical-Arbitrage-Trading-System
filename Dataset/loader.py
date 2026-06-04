@@ -1,11 +1,3 @@
-"""
-Data loading & alignment for the VECM-ARB engine.
-
-Reads the per-asset CSVs produced by ``download_dataset.py`` (yfinance daily
-bars), aligns them on a common trading calendar, and exposes the close-price
-panel, log-price panel and a rolling average-daily-$-volume (ADV) panel used by
-the market-impact model.
-"""
 from __future__ import annotations
 
 import sys
