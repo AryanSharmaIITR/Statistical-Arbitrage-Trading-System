@@ -1,0 +1,36 @@
+============================================================
+  VECM-ARB  —  PERFORMANCE TEAR SHEET
+============================================================
+  Universe (k=8) : Apple, Microsoft, Google, Amazon, NVIDIA, Meta, Adobe, Salesforce
+  Notional AUM         : $10,000,000
+------------------------------------------------------------
+  Total return         :     17.01%
+  CAGR                 :      4.02%
+  Annualised return    :      4.18%
+  Annualised vol       :      6.92%
+  Sharpe (net)         :       0.60
+  Sharpe (gross)       :       0.72
+  Sortino              :       0.67
+  Max drawdown         :     -7.16%
+  Calmar               :       0.58
+  Hit rate (daily)     :     26.89%
+  Rebalances           :        557
+  Cost drag (ann.)     :      77.5bps
+============================================================
+
+Johansen trace test  (95% critical values)
+  universe (k=8): Apple, Microsoft, Google, Amazon, NVIDIA, Meta, Adobe, Salesforce
+  H0          trace      crit       reject?
+  rank<=0       137.50     159.53   no
+  rank<=1        99.84     125.62   no
+  rank<=2        69.58      95.75   no
+  rank<=3        44.28      69.82   no
+  rank<=4        24.89      47.85   no
+  rank<=5        13.63      29.80   no
+  rank<=6         5.62      15.49   no
+  rank<=7         1.27       3.84   no
+  => selected cointegration rank r = 0
+
+VECM(rank=1, k_ar_diff=1)
+  relation 0: half-life ≈ 25.6 bars
+    β: {'Apple': 1.0, 'Microsoft': -0.034, 'Google': -0.459, 'Amazon': 0.421, 'NVIDIA': -0.186, 'Meta': 0.133, 'Adobe': 0.185, 'Salesforce': -0.461}
