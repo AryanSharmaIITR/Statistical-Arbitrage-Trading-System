@@ -1,4 +1,4 @@
-# Statistical-Arbitrage-Trading-System (VECM-ARB)
+# Statistical-Arbitrage-Trading-System
 
 > A statistical arbitrage engine that identifies cointegration in a *k*-dimensional
 > asset space, models the speed of mean reversion (VECM), and executes
@@ -35,7 +35,7 @@ erodes the edge — net Sharpe goes negative above ~$2B.
 
 ## 2) System architecture
 
-![architecture](docs/architecture.png)
+![architecture](architecture.png)
 
 ```
  market-data APIs ─▶ feed microservices ─▶ ZeroMQ / Redis PUB-SUB bus
